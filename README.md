@@ -1,6 +1,6 @@
 # FuncWrapper
 
-Add function wrapper to a module. By using function_wrapperr, all functions in this module will be wrapped.
+Add function wrapper to a module. By using function_wrapper, all functions in this module will be wrapped.
 
 You can define you own module functions wrapper by using FuncWrapper.Helper:
 ```elixir
@@ -9,9 +9,9 @@ defmodule MyWrapper do
 
   defwrapper(fn fun_name, arg_list, body ->
     passed_args = arg_list |> Enum.map(&inspect/1) |> Enum.join(", ")
-    IO.puts "executing #{fun_name}..."
+    IO.puts "executing #{fun_name}(#{passed_args})..."
     result = body
-    IO.puts "finish #{fun_name}, result is #{result}"
+    IO.puts "finish #{fun_name}(#{passed_args}), result is #{result}"
     result
   end)
 end
@@ -23,8 +23,8 @@ defmodule MyModule do
 end
 
 iex> MyModule.sum(1, 2)
-executing sum...
-finish sum, result is 3
+executing sum(1, 2)...
+finish sum(1, 2), result is 3
 3
 ```
 
